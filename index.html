@@ -15,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* ==================== ACADEMIC COLOR SCHEME ==================== */
         :root {
             --color-primary: #1e3a8a;
             --color-secondary: #0891b2;
@@ -55,11 +54,8 @@
             --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
         }
 
-        /* ==================== BASE STYLES ==================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         html { scroll-behavior: smooth; scroll-padding-top: 70px; }
-        
         body {
             font-family: var(--font-sans);
             background: var(--bg-primary);
@@ -67,1039 +63,292 @@
             line-height: 1.7;
             transition: background 0.3s, color 0.3s;
         }
-
         h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 700; line-height: 1.2; }
         code, pre { font-family: var(--font-mono); }
         a { text-decoration: none; color: inherit; transition: color var(--transition); }
         button { cursor: pointer; border: none; font-family: inherit; background: none; }
         img { max-width: 100%; display: block; }
         ::selection { background: var(--color-primary); color: white; }
-
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: var(--bg-secondary); }
         ::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 5px; }
-
         .container { width: 90%; max-width: 1200px; margin: 0 auto; }
         .section { padding: 80px 0; }
 
-        /* ==================== NAVIGATION ==================== */
         .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            box-shadow: var(--shadow);
-            transition: all var(--transition);
+            position: fixed; top: 0; width: 100%;
+            background: var(--bg-card); border-bottom: 1px solid var(--border-color);
+            z-index: 1000; box-shadow: var(--shadow); transition: all var(--transition);
         }
-
         .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 0; width: 90%; max-width: 1200px; margin: 0 auto;
         }
-
-        .nav-brand {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-
-        .nav-brand h1 {
-            font-size: 1.3rem;
-            color: var(--color-primary);
-        }
-
-        .nav-brand span {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            position: relative;
-        }
-
+        .nav-brand { display: flex; flex-direction: column; gap: 0.2rem; }
+        .nav-brand h1 { font-size: 1.3rem; color: var(--color-primary); }
+        .nav-brand span { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); position: relative; }
         .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--color-primary);
-            transition: width var(--transition);
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+            background: var(--color-primary); transition: width var(--transition);
         }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--color-primary);
-        }
-
-        .nav-links a:hover::after, .nav-links a.active::after {
-            width: 100%;
-        }
-
+        .nav-links a:hover, .nav-links a.active { color: var(--color-primary); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
         .theme-toggle {
-            padding: 0.5rem;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 1.2rem;
-            transition: all var(--transition);
+            padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px;
+            font-size: 1.2rem; transition: all var(--transition);
         }
+        .theme-toggle:hover { background: var(--bg-secondary); transform: rotate(180deg); }
+        .hamburger { display: none; flex-direction: column; gap: 4px; }
+        .hamburger span { width: 24px; height: 2px; background: var(--text-primary); transition: all var(--transition); }
 
-        .theme-toggle:hover {
-            background: var(--bg-secondary);
-            transform: rotate(180deg);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .hamburger span {
-            width: 24px;
-            height: 2px;
-            background: var(--text-primary);
-            transition: all var(--transition);
-        }
-
-        /* ==================== HERO SECTION ==================== */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
+            min-height: 100vh; display: flex; align-items: center;
             background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
         }
-
         .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(8,145,178,0.1) 0%, transparent 70%);
-            border-radius: 50%;
+            content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(8,145,178,0.1) 0%, transparent 70%); border-radius: 50%;
         }
-
         .hero-content {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
+            display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem;
+            align-items: center; position: relative; z-index: 1;
         }
-
-        .hero-text h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            color: var(--color-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .hero-text .credentials {
-            font-size: 1.2rem;
-            color: var(--color-secondary);
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .hero-text .affiliation {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-        }
-
-        .hero-bio {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-box {
-            text-align: center;
-            padding: 1rem;
-            background: var(--bg-card);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-
-        .stat-box .number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--color-primary);
-            font-family: var(--font-mono);
-        }
-
-        .stat-box .label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
+        .hero-text h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--color-primary); margin-bottom: 0.5rem; }
+        .hero-text .credentials { font-size: 1.2rem; color: var(--color-secondary); font-weight: 500; margin-bottom: 1rem; }
+        .hero-text .affiliation { font-size: 1rem; color: var(--text-secondary); margin-bottom: 2rem; }
+        .hero-bio { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 2rem; }
+        .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+        .stat-box { text-align: center; padding: 1rem; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-color); }
+        .stat-box .number { font-size: 2rem; font-weight: 700; color: var(--color-primary); font-family: var(--font-mono); }
+        .stat-box .label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
         .btn {
-            padding: 0.8rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 2px solid transparent;
+            padding: 0.8rem 1.5rem; border-radius: 6px; font-weight: 500; font-size: 0.9rem;
+            transition: all var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; border: 2px solid transparent;
         }
-
-        .btn-primary {
-            background: var(--color-primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #1e40af;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-secondary {
-            border: 2px solid var(--color-primary);
-            color: var(--color-primary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--color-primary);
-            color: white;
-        }
-
-        .hero-image {
-            display: flex;
-            justify-content: center;
-        }
-
+        .btn-primary { background: var(--color-primary); color: white; }
+        .btn-primary:hover { background: #1e40af; transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .btn-secondary { border: 2px solid var(--color-primary); color: var(--color-primary); }
+        .btn-secondary:hover { background: var(--color-primary); color: white; }
+        .hero-image { display: flex; justify-content: center; }
         .profile-card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-color);
-            text-align: center;
+            background: var(--bg-card); border-radius: 12px; padding: 2rem;
+            box-shadow: var(--shadow-lg); border: 1px solid var(--border-color); text-align: center;
         }
-
         .profile-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
+            width: 200px; height: 200px; border-radius: 50%;
             background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            color: white;
-            font-weight: 700;
-            margin: 0 auto 1.5rem;
-            border: 4px solid var(--bg-primary);
-            box-shadow: var(--shadow-md);
+            display: flex; align-items: center; justify-content: center; font-size: 5rem;
+            color: white; font-weight: 700; margin: 0 auto 1.5rem;
+            border: 4px solid var(--bg-primary); box-shadow: var(--shadow-md);
         }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .contact-info a {
-            color: var(--color-primary);
-            font-weight: 500;
-        }
-
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-top: 1rem;
-        }
-
+        .contact-info { display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem; color: var(--text-secondary); }
+        .contact-info a { color: var(--color-primary); font-weight: 500; }
+        .contact-info a:hover { text-decoration: underline; }
+        .social-links { display: flex; justify-content: center; gap: 0.8rem; margin-top: 1rem; }
         .social-links a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all var(--transition);
+            width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center; transition: all var(--transition);
         }
+        .social-links a:hover { background: var(--color-primary); color: white; transform: translateY(-2px); }
 
-        .social-links a:hover {
-            background: var(--color-primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* ==================== SECTION HEADERS ==================== */
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
+        .section-header { text-align: center; margin-bottom: 3rem; }
         .section-label {
-            display: inline-block;
-            color: var(--color-secondary);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
+            display: inline-block; color: var(--color-secondary); font-weight: 600;
+            text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 0.5rem;
         }
+        .section-title { font-size: clamp(2rem, 4vw, 2.5rem); color: var(--color-primary); margin-bottom: 0.5rem; }
+        .section-subtitle { color: var(--text-secondary); font-size: 1rem; max-width: 600px; margin: 0 auto; }
 
-        .section-title {
-            font-size: clamp(2rem, 4vw, 2.5rem);
-            color: var(--color-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .section-subtitle {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* ==================== EDUCATION ==================== */
-        .timeline {
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--border-color);
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-bottom: 2rem;
-        }
-
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--border-color); }
+        .timeline-item { position: relative; padding-bottom: 2rem; }
         .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2.5rem;
-            top: 0;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--color-primary);
-            border: 3px solid var(--bg-primary);
+            content: ''; position: absolute; left: -2.5rem; top: 0; width: 12px; height: 12px;
+            border-radius: 50%; background: var(--color-primary); border: 3px solid var(--bg-primary);
             box-shadow: 0 0 0 3px var(--color-primary);
         }
-
         .timeline-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: all var(--transition);
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px;
+            padding: 1.5rem; box-shadow: var(--shadow); transition: all var(--transition);
         }
-
-        .timeline-content:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateX(5px);
-        }
-
-        .timeline-content h3 {
-            font-size: 1.3rem;
-            color: var(--color-primary);
-            margin-bottom: 0.3rem;
-        }
-
-        .timeline-content .degree {
-            color: var(--color-secondary);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-content .institution {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-
+        .timeline-content:hover { box-shadow: var(--shadow-md); transform: translateX(5px); }
+        .timeline-content h3 { font-size: 1.3rem; color: var(--color-primary); margin-bottom: 0.3rem; }
+        .timeline-content .degree { color: var(--color-secondary); font-weight: 500; margin-bottom: 0.5rem; }
+        .timeline-content .institution { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0.5rem; }
         .timeline-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid var(--border-color);
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);
         }
+        .timeline-meta .score { font-weight: 700; color: var(--color-accent); font-family: var(--font-mono); }
+        .timeline-meta .year { color: var(--text-muted); font-size: 0.9rem; }
 
-        .timeline-meta .score {
-            font-weight: 700;
-            color: var(--color-accent);
-            font-family: var(--font-mono);
-        }
-
-        .timeline-meta .year {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* ==================== RESEARCH INTERESTS ==================== */
-        .interests-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
+        .interests-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
         .interest-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: all var(--transition);
-            position: relative;
-            overflow: hidden;
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px;
+            padding: 1.5rem; transition: all var(--transition); position: relative; overflow: hidden;
         }
-
         .interest-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 0;
-            background: var(--color-primary);
-            transition: height var(--transition);
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 0;
+            background: var(--color-primary); transition: height var(--transition);
         }
+        .interest-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+        .interest-card:hover::before { height: 100%; }
+        .interest-card .icon { font-size: 2rem; margin-bottom: 1rem; }
+        .interest-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--color-primary); }
+        .interest-card p { color: var(--text-secondary); font-size: 0.9rem; }
 
-        .interest-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-3px);
-        }
-
-        .interest-card:hover::before {
-            height: 100%;
-        }
-
-        .interest-card .icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .interest-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: var(--color-primary);
-        }
-
-        .interest-card p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* ==================== PUBLICATIONS ==================== */
-        .pub-filters {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
+        .pub-filters { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
         .filter-btn {
-            padding: 0.5rem 1.2rem;
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            transition: all var(--transition);
+            padding: 0.5rem 1.2rem; border: 1px solid var(--border-color); border-radius: 50px;
+            font-size: 0.9rem; color: var(--text-secondary); transition: all var(--transition);
         }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--color-primary);
-            color: white;
-            border-color: var(--color-primary);
-        }
-
-        .publications-list {
-            display: grid;
-            gap: 1.5rem;
-        }
-
+        .filter-btn:hover, .filter-btn.active { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+        .publications-list { display: grid; gap: 1.5rem; }
         .pub-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--color-primary);
-            border-radius: 8px;
-            padding: 1.8rem;
-            transition: all var(--transition);
-            position: relative;
+            background: var(--bg-card); border: 1px solid var(--border-color); border-left: 4px solid var(--color-primary);
+            border-radius: 8px; padding: 1.8rem; transition: all var(--transition); position: relative;
         }
-
-        .pub-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateX(4px);
-        }
-
+        .pub-card:hover { box-shadow: var(--shadow-md); transform: translateX(4px); }
         .pub-type {
-            display: inline-block;
-            background: var(--color-secondary);
-            color: white;
-            padding: 0.2rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.8rem;
+            display: inline-block; background: var(--color-secondary); color: white;
+            padding: 0.2rem 0.8rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.8rem;
         }
-
-        .pub-type.patent {
-            background: var(--color-warning);
-        }
-
-        .pub-card .authors {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 0.8rem;
-            line-height: 1.6;
-        }
-
-        .pub-card .authors .me {
-            color: var(--color-primary);
-            font-weight: 600;
-        }
-
-        .pub-card .title {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            line-height: 1.4;
-            color: var(--text-primary);
-        }
-
-        .pub-card .journal {
-            color: var(--text-muted);
-            font-style: italic;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .pub-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            align-items: center;
-        }
-
+        .pub-type.patent { background: var(--color-warning); }
+        .pub-card .authors { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0.8rem; line-height: 1.6; }
+        .pub-card .authors .me { color: var(--color-primary); font-weight: 600; }
+        .pub-card .title { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.8rem; line-height: 1.4; color: var(--text-primary); }
+        .pub-card .journal { color: var(--text-muted); font-style: italic; font-size: 0.9rem; margin-bottom: 1rem; }
+        .pub-meta { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
         .pub-year {
-            background: rgba(8,145,178,0.1);
-            color: var(--color-secondary);
-            padding: 0.3rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            background: rgba(8,145,178,0.1); color: var(--color-secondary);
+            padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.85rem; font-weight: 600;
         }
-
-        .pub-links {
-            display: flex;
-            gap: 0.8rem;
-        }
-
+        .pub-links { display: flex; gap: 0.8rem; }
         .pub-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            padding: 0.3rem 0.8rem;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 0.85rem;
-            color: var(--color-primary);
-            transition: all var(--transition);
+            display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0.8rem;
+            border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85rem;
+            color: var(--color-primary); transition: all var(--transition);
         }
+        .pub-link:hover { background: var(--color-primary); color: white; border-color: var(--color-primary); }
 
-        .pub-link:hover {
-            background: var(--color-primary);
-            color: white;
-            border-color: var(--color-primary);
-        }
-
-        .pub-abstract {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .pub-abstract.show {
-            max-height: 500px;
-        }
-
-        .pub-abstract p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.7;
-        }
-
-        .toggle-abstract {
-            margin-top: 0.8rem;
-            color: var(--color-secondary);
-            font-size: 0.85rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        /* ==================== GITHUB PROJECTS ==================== */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
         .project-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.8rem;
-            transition: all var(--transition);
-            position: relative;
-            overflow: hidden;
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px;
+            padding: 1.8rem; transition: all var(--transition); position: relative; overflow: hidden;
         }
-
         .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
             background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
-            transform: scaleX(0);
-            transition: transform var(--transition);
+            transform: scaleX(0); transition: transform var(--transition);
         }
-
-        .project-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-5px);
-        }
-
-        .project-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-        }
-
-        .project-icon {
-            font-size: 2rem;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 0.5rem;
-        }
-
+        .project-card:hover { box-shadow: var(--shadow-md); transform: translateY(-5px); }
+        .project-card:hover::before { transform: scaleX(1); }
+        .project-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; }
+        .project-icon { font-size: 2rem; }
+        .project-links { display: flex; gap: 0.5rem; }
         .project-links a {
-            width: 32px;
-            height: 32px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all var(--transition);
+            width: 32px; height: 32px; border: 1px solid var(--border-color); border-radius: 6px;
+            display: flex; align-items: center; justify-content: center; transition: all var(--transition);
         }
-
-        .project-links a:hover {
-            background: var(--color-primary);
-            color: white;
-            border-color: var(--color-primary);
-        }
-
-        .project-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.8rem;
-            color: var(--color-primary);
-        }
-
-        .project-card h3 a:hover {
-            text-decoration: underline;
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
+        .project-links a:hover { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+        .project-card h3 { font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--color-primary); }
+        .project-card h3 a:hover { text-decoration: underline; }
+        .project-description { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
         .tag {
-            background: rgba(8,145,178,0.1);
-            color: var(--color-secondary);
-            padding: 0.3rem 0.7rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            font-family: var(--font-mono);
+            background: rgba(8,145,178,0.1); color: var(--color-secondary);
+            padding: 0.3rem 0.7rem; border-radius: 4px; font-size: 0.75rem; font-weight: 500; font-family: var(--font-mono);
         }
-
         .project-stats {
-            display: flex;
-            gap: 1.5rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-muted);
-            font-size: 0.85rem;
+            display: flex; gap: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);
+            color: var(--text-muted); font-size: 0.85rem;
         }
+        .project-stats span { display: flex; align-items: center; gap: 0.3rem; }
 
-        .project-stats span {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        /* ==================== SKILLS ==================== */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
+        .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
         .skill-category {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 2rem;
-            transition: all var(--transition);
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px;
+            padding: 2rem; transition: all var(--transition);
         }
-
-        .skill-category:hover {
-            box-shadow: var(--shadow-md);
-        }
-
+        .skill-category:hover { box-shadow: var(--shadow-md); }
         .skill-category h3 {
-            font-size: 1.2rem;
-            color: var(--color-primary);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 1.2rem; color: var(--color-primary); margin-bottom: 1.5rem;
+            display: flex; align-items: center; gap: 0.5rem;
         }
+        .skill-category ul { list-style: none; display: grid; gap: 0.8rem; }
+        .skill-category li { color: var(--text-secondary); padding-left: 1.5rem; position: relative; }
+        .skill-category li::before { content: '◆'; position: absolute; left: 0; color: var(--color-secondary); }
 
-        .skill-category ul {
-            list-style: none;
-            display: grid;
-            gap: 0.8rem;
-        }
-
-        .skill-category li {
-            color: var(--text-secondary);
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .skill-category li::before {
-            content: '◆';
-            position: absolute;
-            left: 0;
-            color: var(--color-secondary);
-        }
-
-        /* ==================== CONTACT ==================== */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 3rem;
-        }
-
-        .contact-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; }
+        .contact-cards { display: flex; flex-direction: column; gap: 1rem; }
         .contact-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: all var(--transition);
+            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px;
+            padding: 1.2rem; display: flex; align-items: center; gap: 1rem; transition: all var(--transition);
         }
-
-        .contact-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateX(5px);
-        }
-
+        .contact-card:hover { box-shadow: var(--shadow-md); transform: translateX(5px); }
         .contact-card-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            color: white;
+            width: 48px; height: 48px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: white;
         }
-
-        .contact-card-text h4 {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 0.2rem;
-        }
-
-        .contact-card-text p {
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        .contact-card-text a {
-            color: var(--color-primary);
-        }
-
-        .contact-card-text a:hover {
-            text-decoration: underline;
-        }
-
-        .contact-form {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.95rem;
+        .contact-card-text h4 { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+        .contact-card-text p { font-size: 0.95rem; font-weight: 500; }
+        .contact-card-text a { color: var(--color-primary); }
+        .contact-card-text a:hover { text-decoration: underline; }
+        .contact-form { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 2rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-primary); }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 6px;
+            background: var(--bg-primary); color: var(--text-primary); font-family: inherit; font-size: 0.95rem;
             transition: all var(--transition);
         }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
         }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
+        .form-group textarea { min-height: 120px; resize: vertical; }
         .form-submit {
-            width: 100%;
-            padding: 1rem;
-            background: var(--color-primary);
-            color: white;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: all var(--transition);
+            width: 100%; padding: 1rem; background: var(--color-primary); color: white;
+            border-radius: 6px; font-weight: 600; transition: all var(--transition);
         }
+        .form-submit:hover { background: #1e40af; transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
-        .form-submit:hover {
-            background: #1e40af;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
+        .footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 2rem 0; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-text { color: var(--text-muted); font-size: 0.9rem; }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a { color: var(--text-secondary); font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--color-primary); }
 
-        /* ==================== FOOTER ==================== */
-        .footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            padding: 2rem 0;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .footer-text {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--color-primary);
-        }
-
-        /* ==================== BACK TO TOP ==================== */
         .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 48px;
-            height: 48px;
-            background: var(--color-primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all var(--transition);
-            box-shadow: var(--shadow-lg);
-            z-index: 999;
+            position: fixed; bottom: 2rem; right: 2rem; width: 48px; height: 48px;
+            background: var(--color-primary); color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: all var(--transition);
+            box-shadow: var(--shadow-lg); z-index: 999;
         }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { transform: translateY(-3px); background: #1e40af; }
 
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            transform: translateY(-3px);
-            background: #1e40af;
-        }
-
-        /* ==================== RESPONSIVE ==================== */
         @media (max-width: 968px) {
-            .hero-content,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
+            .hero-content, .contact-grid { grid-template-columns: 1fr; }
             .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                height: 100vh;
-                width: 280px;
-                background: var(--bg-card);
-                flex-direction: column;
-                padding: 5rem 2rem;
-                border-left: 1px solid var(--border-color);
-                transition: right var(--transition);
-                box-shadow: var(--shadow-lg);
+                position: fixed; top: 0; right: -100%; height: 100vh; width: 280px;
+                background: var(--bg-card); flex-direction: column; padding: 5rem 2rem;
+                border-left: 1px solid var(--border-color); transition: right var(--transition); box-shadow: var(--shadow-lg);
             }
-
-            .nav-links.open {
-                right: 0;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hamburger.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-
-            .hamburger.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .hamburger.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -5px);
-            }
-
-            .hero-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
+            .nav-links.open { right: 0; }
+            .hamburger { display: flex; }
+            .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+            .hero-stats { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
         }
-
         @media (max-width: 768px) {
             .section { padding: 60px 0; }
             .hero-actions { flex-direction: column; width: 100%; }
@@ -1335,7 +584,6 @@
             </div>
 
             <div class="publications-list">
-                <!-- Publication 1 -->
                 <div class="pub-card" data-type="journal">
                     <span class="pub-type">Journal Article</span>
                     <p class="authors">Shah, A. J.; Dar, M. Y.; Adnan, M.; Varma, T.; <span class="me">Agarwal, D.</span>; Garg, P.; Mir, R. H.; Meena, R.; Masoodi, M. H.</p>
@@ -1356,7 +604,6 @@
                     </div>
                 </div>
 
-                <!-- Publication 2 -->
                 <div class="pub-card" data-type="journal">
                     <span class="pub-type">Journal Article</span>
                     <p class="authors"><span class="me">Agarwal, D.</span>; Malik, J.; Bhanwala, N.; Ambatwar, R.; Kumar, S.; Chandrakar, L.; Khatik, G. L.</p>
@@ -1369,7 +616,7 @@
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
                                 DOI
                             </a>
-                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/2.pdf" class="pub-link" download="Agarwal_2024_Journal_of_Biomolecular_Structure_and_Dynamics.pdf">
+                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/2.pdf" class="pub-link" download="Agarwal_2024_JBSD.pdf">
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>
                                 Full Text
                             </a>
@@ -1377,7 +624,6 @@
                     </div>
                 </div>
 
-                <!-- Publication 3 -->
                 <div class="pub-card" data-type="journal">
                     <span class="pub-type">Journal Article</span>
                     <p class="authors">Mahajan, A.; Yadav, S.; Malik, J.; <span class="me">Agarwal, D.</span>; Ambatwar, R.; Datusalia, A. K.; Khatik, G. L.</p>
@@ -1398,7 +644,6 @@
                     </div>
                 </div>
 
-                <!-- Publication 4 -->
                 <div class="pub-card" data-type="journal">
                     <span class="pub-type">Journal Article</span>
                     <p class="authors"><span class="me">Agarwal, D.</span>; Kumar, S.; Ambatwar, R.; Bhanwala, N.; Chandrakar, L.; Khatik, G. L.</p>
@@ -1411,7 +656,7 @@
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
                                 DOI
                             </a>
-                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/4.pdf" class="pub-link" download="Agarwal_2024_Central_Nervous_System_Agents_in_Medicinal_Chemistry.pdf">
+                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/4.pdf" class="pub-link" download="Agarwal_2024_CNSSAMC.pdf">
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>
                                 Full Text
                             </a>
@@ -1419,7 +664,6 @@
                     </div>
                 </div>
 
-                <!-- Publication 5 -->
                 <div class="pub-card" data-type="journal">
                     <span class="pub-type">Journal Article</span>
                     <p class="authors">Ambatwar, R.; Kumar, S.; <span class="me">Agarwal, D.</span>; Chandrakar, L.; Khatik, G. L.</p>
@@ -1432,7 +676,7 @@
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
                                 DOI
                             </a>
-                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/5.pdf" class="pub-link" download="Agarwal_2024_Journal_of_Heterocyclic_Chemistry.pdf">
+                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/5.pdf" class="pub-link" download="Agarwal_2024_JHC.pdf">
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>
                                 Full Text
                             </a>
@@ -1440,7 +684,6 @@
                     </div>
                 </div>
 
-                <!-- Patent -->
                 <div class="pub-card" data-type="patent">
                     <span class="pub-type patent">Indian Patent</span>
                     <p class="authors">Khatik, G. L.; Datusalia, A. K.; Mahajan, A.; Yadav, S.; Malik, J.; <span class="me">Agarwal, D.</span>; Ambatwar, R.</p>
@@ -1464,208 +707,184 @@
         </div>
     </section>
 
-    <!-- GitHub Projects -->
+    <!-- ==================== UPDATED GITHUB PROJECTS ==================== -->
     <section class="section" id="projects" style="background: var(--bg-secondary);">
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Open Source</span>
                 <h2 class="section-title">GitHub Projects & Tools</h2>
-                <p class="section-subtitle">Computational chemistry tools and drug discovery pipelines</p>
+                <p class="section-subtitle">Computational chemistry tools, AI models, and drug discovery pipelines</p>
             </div>
             <div class="projects-grid">
-                <!-- Replace these with your actual GitHub project URLs -->
-                
+
+                <!-- 1. cardiotox_prediction -->
                 <div class="project-card">
                     <div class="project-header">
-                        <div class="project-icon">🧬</div>
+                        <div class="project-icon">❤️‍🩹</div>
                         <div class="project-links">
-                            <a href="https://github.com/pip700" target="_blank" aria-label="GitHub">
+                            <a href="https://github.com/pip700/cardiotox_prediction" target="_blank" aria-label="GitHub">
                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
                             </a>
                         </div>
                     </div>
-                    <h3><a href="https://github.com/pip700" target="_blank">QSAR-ML-Builder</a></h3>
-                    <p class="project-description">Comprehensive toolkit for building quantitative structure-activity relationship models using machine learning. Includes molecular descriptor calculation, feature selection, and model validation.</p>
+                    <h3><a href="https://github.com/pip700/cardiotox_prediction" target="_blank">cardiotox_prediction</a></h3>
+                    <p class="project-description">Machine learning-based prediction of cardiotoxicity for drug candidates. Employs molecular descriptors and fingerprints to classify compounds by cardiac safety risk, aiding early-stage drug safety assessment.</p>
                     <div class="project-tags">
                         <span class="tag">Python</span>
                         <span class="tag">Scikit-learn</span>
                         <span class="tag">RDKit</span>
-                        <span class="tag">Pandas</span>
+                        <span class="tag">Toxicology</span>
                     </div>
                     <div class="project-stats">
-                        <span>⭐ 45</span>
-                        <span>🔀 12</span>
                         <span>🐍 Python</span>
+                        <span>📂 Public</span>
                     </div>
                 </div>
 
+                <!-- 2. Gromacs_docker_setup -->
                 <div class="project-card">
                     <div class="project-header">
-                        <div class="project-icon">🎯</div>
+                        <div class="project-icon">🐳</div>
                         <div class="project-links">
-                            <a href="https://github.com/pip700" target="_blank" aria-label="GitHub">
+                            <a href="https://github.com/pip700/Gromacs_docker_setup" target="_blank" aria-label="GitHub">
                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
                             </a>
                         </div>
                     </div>
-                    <h3><a href="https://github.com/pip700" target="_blank">AutoDock-Pipeline</a></h3>
-                    <p class="project-description">Automated molecular docking workflow using AutoDock Vina with batch processing, result analysis, and visualization capabilities for high-throughput virtual screening.</p>
+                    <h3><a href="https://github.com/pip700/Gromacs_docker_setup" target="_blank">Gromacs_docker_setup</a></h3>
+                    <p class="project-description">Dockerized GROMACS environment for reproducible molecular dynamics simulations. Provides a ready-to-use containerized setup, eliminating complex installation dependencies for MD simulation workflows.</p>
                     <div class="project-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">AutoDock Vina</span>
-                        <span class="tag">Biopython</span>
-                        <span class="tag">Matplotlib</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">GROMACS</span>
+                        <span class="tag">MD Simulation</span>
+                        <span class="tag">Shell</span>
                     </div>
                     <div class="project-stats">
-                        <span>⭐ 67</span>
-                        <span>🔀 23</span>
-                        <span>🐍 Python</span>
+                        <span>🐳 Docker</span>
+                        <span>📂 Public</span>
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">📊</div>
-                        <div class="project-links">
-                            <a href="https://github.com/pip700" target="_blank" aria-label="GitHub">
-                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                    <h3><a href="https://github.com/pip700" target="_blank">NetPharmAnalyzer</a></h3>
-                    <p class="project-description">Network pharmacology analysis tool for multi-target drug discovery. Performs protein-protein interaction network analysis, GO enrichment, and KEGG pathway analysis.</p>
-                    <div class="project-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">NetworkX</span>
-                        <span class="tag">Cytoscape</span>
-                        <span class="tag">BioPython</span>
-                    </div>
-                    <div class="project-stats">
-                        <span>⭐ 34</span>
-                        <span>🔀 8</span>
-                        <span>🐍 Python</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">🧪</div>
-                        <div class="project-links">
-                            <a href="https://github.com/pip700" target="_blank" aria-label="GitHub">
-                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                    <h3><a href="https://github.com/pip700" target="_blank">ADMET-Predictor</a></h3>
-                    <p class="project-description">Deep learning-based ADMET property prediction for drug candidates. Predicts absorption, distribution, metabolism, excretion, and toxicity using neural networks.</p>
-                    <div class="project-tags">
-                        <span class="tag">TensorFlow</span>
-                        <span class="tag">Keras</span>
-                        <span class="tag">RDKit</span>
-                        <span class="tag">NumPy</span>
-                    </div>
-                    <div class="project-stats">
-                        <span>⭐ 89</span>
-                        <span>🔀 31</span>
-                        <span>🐍 Python</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">🔬</div>
-                        <div class="project-links">
-                            <a href="https://github.com/pip700" target="_blank" aria-label="GitHub">
-                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                    <h3><a href="https://github.com/pip700" target="_blank">MolDescriptor-Calculator</a></h3>
-                    <p class="project-description">Comprehensive molecular descriptor calculation tool supporting 200+ descriptors and various molecular fingerprints for QSAR/QSPR modeling and similarity analysis.</p>
-                    <div class="project-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">RDKit</span>
-                        <span class="tag">Pandas</span>
-                        <span class="tag">Mordred</span>
-                    </div>
-                    <div class="project-stats">
-                        <span>⭐ 52</span>
-                        <span>🔀 15</span>
-                        <span>🐍 Python</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">🤖</div>
-                        <div class="project-links">
-                            <a href="https://github.com/pip700" target="_blank" aria-label="GitHub">
-                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                    <h3><a href="https://github.com/pip700" target="_blank">GNN-DrugTarget</a></h3>
-                    <p class="project-description">Graph Neural Network architecture for predicting drug-target interactions using molecular graphs and protein sequence features. Achieves state-of-the-art performance.</p>
-                    <div class="project-tags">
-                        <span class="tag">PyTorch</span>
-                        <span class="tag">DGL</span>
-                        <span class="tag">RDKit</span>
-                        <span class="tag">GNN</span>
-                    </div>
-                    <div class="project-stats">
-                        <span>⭐ 124</span>
-                        <span>🔀 42</span>
-                        <span>🐍 Python</span>
-                    </div>
-                </div>
-
+                <!-- 3. Repurposing -->
                 <div class="project-card">
                     <div class="project-header">
                         <div class="project-icon">💊</div>
                         <div class="project-links">
-                            <a href="https://github.com/pip700" target="_blank" aria-label="GitHub">
+                            <a href="https://github.com/pip700/Repurposing" target="_blank" aria-label="GitHub">
                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
                             </a>
                         </div>
                     </div>
-                    <h3><a href="https://github.com/pip700" target="_blank">VAE-MolGen</a></h3>
-                    <p class="project-description">Variational Autoencoder for de novo molecular generation and optimization. Generates novel drug-like molecules in specified chemical space with desired properties.</p>
+                    <h3><a href="https://github.com/pip700/Repurposing" target="_blank">Repurposing</a></h3>
+                    <p class="project-description">3D-VAE driven molecular repurposing framework. Leverages Variational Autoencoders with 3D molecular representations to identify existing drugs for new therapeutic indications through latent space exploration.</p>
                     <div class="project-tags">
                         <span class="tag">PyTorch</span>
                         <span class="tag">VAE</span>
-                        <span class="tag">SMILES</span>
-                        <span class="tag">RDKit</span>
+                        <span class="tag">3D Molecules</span>
+                        <span class="tag">Drug Repurposing</span>
                     </div>
                     <div class="project-stats">
-                        <span>⭐ 98</span>
-                        <span>🔀 36</span>
                         <span>🐍 Python</span>
+                        <span>📂 Public</span>
                     </div>
                 </div>
 
+                <!-- 4. Pks13_Pred -->
                 <div class="project-card">
                     <div class="project-header">
-                        <div class="project-icon">📈</div>
+                        <div class="project-icon">🎯</div>
                         <div class="project-links">
-                            <a href="https://github.com/pip700" target="_blank" aria-label="GitHub">
+                            <a href="https://github.com/pip700/Pks13_Pred" target="_blank" aria-label="GitHub">
                                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
                             </a>
                         </div>
                     </div>
-                    <h3><a href="https://github.com/pip700" target="_blank">MD-Analysis-Suite</a></h3>
-                    <p class="project-description">Molecular dynamics trajectory analysis toolkit for protein-ligand complexes. Automates RMSD, RMSF, binding free energy, and interaction analysis.</p>
+                    <h3><a href="https://github.com/pip700/Pks13_Pred" target="_blank">Pks13_Pred</a></h3>
+                    <p class="project-description">Classification model for Pks13 inhibitors — a key target for tuberculosis drug discovery. Uses machine learning to predict inhibitory activity of compounds against the Pks13 enzyme of Mycobacterium tuberculosis.</p>
                     <div class="project-tags">
                         <span class="tag">Python</span>
-                        <span class="tag">MDAnalysis</span>
-                        <span class="tag">GROMACS</span>
-                        <span class="tag">Matplotlib</span>
+                        <span class="tag">Scikit-learn</span>
+                        <span class="tag">RDKit</span>
+                        <span class="tag">Classification</span>
                     </div>
                     <div class="project-stats">
-                        <span>⭐ 41</span>
-                        <span>🔀 11</span>
                         <span>🐍 Python</span>
+                        <span>📂 Public</span>
                     </div>
                 </div>
+
+                <!-- 5. research_paper_chatbot -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">📄</div>
+                        <div class="project-links">
+                            <a href="https://github.com/pip700/research_paper_chatbot" target="_blank" aria-label="GitHub">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3><a href="https://github.com/pip700/research_paper_chatbot" target="_blank">research_paper_chatbot</a></h3>
+                    <p class="project-description">AI-powered chatbot for interacting with research papers. Upload PDFs and ask questions in natural language — the chatbot extracts, processes, and retrieves relevant answers using NLP and retrieval-augmented generation.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">LLM</span>
+                        <span class="tag">RAG</span>
+                        <span class="tag">NLP</span>
+                    </div>
+                    <div class="project-stats">
+                        <span>🐍 Python</span>
+                        <span>📂 Public</span>
+                    </div>
+                </div>
+
+                <!-- 6. Diagnosing-Alzheimer-s-Disease -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🧠</div>
+                        <div class="project-links">
+                            <a href="https://github.com/pip700/Diagnosing-Alzheimer-s-Disease" target="_blank" aria-label="GitHub">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3><a href="https://github.com/pip700/Diagnosing-Alzheimer-s-Disease" target="_blank">Diagnosing-Alzheimer-s-Disease</a></h3>
+                    <p class="project-description">Deep learning approach for diagnosing Alzheimer's disease from medical imaging data. Utilizes convolutional neural networks to classify brain scans and assist in early-stage AD detection and severity staging.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag">CNN</span>
+                        <span class="tag">Medical Imaging</span>
+                    </div>
+                    <div class="project-stats">
+                        <span>🐍 Python</span>
+                        <span>📂 Public</span>
+                    </div>
+                </div>
+
+                <!-- 7. ChE_prediction -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🧪</div>
+                        <div class="project-links">
+                            <a href="https://github.com/pip700/ChE_prediction" target="_blank" aria-label="GitHub">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3><a href="https://github.com/pip700/ChE_prediction" target="_blank">ChE_prediction</a></h3>
+                    <p class="project-description">Cholinesterase inhibitor prediction using machine learning models. Predicts the inhibitory potential of compounds against acetylcholinesterase (AChE) and butyrylcholinesterase (BChE) — key targets in Alzheimer's therapy.</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Scikit-learn</span>
+                        <span class="tag">RDKit</span>
+                        <span class="tag">QSAR</span>
+                    </div>
+                    <div class="project-stats">
+                        <span>🐍 Python</span>
+                        <span>📂 Public</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1818,7 +1037,6 @@
     <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
     <script>
-        // Navigation
         const navbar = document.getElementById('navbar');
         const navLinks = document.querySelectorAll('.nav-links a');
         const hamburger = document.getElementById('hamburger');
@@ -1838,7 +1056,6 @@
             });
         });
 
-        // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
         const savedTheme = localStorage.getItem('theme') || 'light';
@@ -1853,7 +1070,6 @@
             themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
 
-        // Scroll Effects
         window.addEventListener('scroll', () => {
             const backToTop = document.getElementById('backToTop');
             if (window.scrollY > 500) {
@@ -1867,7 +1083,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Publication Filters
         const filterBtns = document.querySelectorAll('.filter-btn');
         const pubCards = document.querySelectorAll('.pub-card');
 
@@ -1876,7 +1091,6 @@
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 const filter = btn.dataset.filter;
-                
                 pubCards.forEach(card => {
                     if (filter === 'all' || card.dataset.type === filter) {
                         card.style.display = 'block';
@@ -1887,14 +1101,12 @@
             });
         });
 
-        // Form Submission
         document.getElementById('contactForm').addEventListener('submit', (e) => {
             e.preventDefault();
             alert('Thank you for your message! I will get back to you soon.');
             e.target.reset();
         });
 
-        // CV Download
         function downloadCV() {
             const cvContent = `CURRICULUM VITAE
 ═══════════════════════════════════════════════════════
@@ -1993,6 +1205,18 @@ Title: BENZOXAZOLE-2-YL-2-PHENOXYACETAMIDE DERIVATIVES AS
        ALPHA-AMYLASE INHIBITORS AND ANTI-DIABETIC
 Inventors: Khatik, G. L.; Datusalia, A. K.; Mahajan, A.; 
            Yadav, S.; Malik, J.; Agarwal, D.; Ambatwar, R.
+
+═══════════════════════════════════════════════════════
+
+GITHUB PROJECTS
+───────────────────────────────────────────────────────
+1. cardiotox_prediction - ML-based cardiotoxicity prediction
+2. Gromacs_docker_setup - Dockerized GROMACS for MD simulations
+3. Repurposing - 3D-VAE driven molecular repurposing
+4. Pks13_Pred - Classification of Pks13 inhibitors
+5. research_paper_chatbot - AI chatbot for research papers
+6. Diagnosing-Alzheimer-s-Disease - DL-based AD diagnosis
+7. ChE_prediction - Cholinesterase inhibitor prediction
 
 ═══════════════════════════════════════════════════════
 
