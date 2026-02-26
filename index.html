@@ -139,69 +139,29 @@
             box-shadow: var(--shadow-lg); border: 1px solid var(--border-color); text-align: center;
         }
 
-        /* ==================== PROFILE PHOTO STYLES ==================== */
         .profile-img-wrapper {
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            position: relative;
-            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-            padding: 4px;
-            box-shadow: var(--shadow-lg);
+            width: 220px; height: 220px; border-radius: 50%; margin: 0 auto 1.5rem;
+            position: relative; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            padding: 4px; box-shadow: var(--shadow-lg);
         }
-
         .profile-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: center top;
-            border: 3px solid var(--bg-primary);
-            transition: transform 0.3s ease;
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center top;
+            border: 3px solid var(--bg-primary); transition: transform 0.3s ease;
         }
-
-        .profile-img-wrapper:hover img {
-            transform: scale(1.03);
-        }
-
+        .profile-img-wrapper:hover img { transform: scale(1.03); }
         .profile-img-wrapper .fallback-initials {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
+            width: 100%; height: 100%; border-radius: 50%;
             background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 4.5rem;
-            color: white;
-            font-weight: 700;
-            font-family: var(--font-serif);
+            display: none; align-items: center; justify-content: center;
+            font-size: 4.5rem; color: white; font-weight: 700; font-family: var(--font-serif);
             border: 3px solid var(--bg-primary);
         }
-
-        .profile-img-wrapper.no-photo img {
-            display: none;
-        }
-
-        .profile-img-wrapper.no-photo .fallback-initials {
-            display: flex;
-        }
-
-        /* Status indicator dot */
+        .profile-img-wrapper.no-photo img { display: none; }
+        .profile-img-wrapper.no-photo .fallback-initials { display: flex; }
         .profile-img-wrapper::after {
-            content: '';
-            position: absolute;
-            bottom: 12px;
-            right: 12px;
-            width: 20px;
-            height: 20px;
-            background: var(--color-accent);
-            border-radius: 50%;
-            border: 3px solid var(--bg-card);
-            z-index: 2;
+            content: ''; position: absolute; bottom: 12px; right: 12px; width: 20px; height: 20px;
+            background: var(--color-accent); border-radius: 50%; border: 3px solid var(--bg-card); z-index: 2;
         }
-        /* ==================== END PROFILE PHOTO ==================== */
 
         .contact-info { display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem; color: var(--text-secondary); }
         .contact-info a { color: var(--color-primary); font-weight: 500; }
@@ -342,13 +302,15 @@
         .skill-category li { color: var(--text-secondary); padding-left: 1.5rem; position: relative; }
         .skill-category li::before { content: '◆'; position: absolute; left: 0; color: var(--color-secondary); }
 
-        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; }
-        .contact-cards { display: flex; flex-direction: column; gap: 1rem; }
+        .contact-cards {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;
+            max-width: 900px; margin: 0 auto;
+        }
         .contact-card {
             background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px;
             padding: 1.2rem; display: flex; align-items: center; gap: 1rem; transition: all var(--transition);
         }
-        .contact-card:hover { box-shadow: var(--shadow-md); transform: translateX(5px); }
+        .contact-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
         .contact-card-icon {
             width: 48px; height: 48px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
             border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: white;
@@ -358,23 +320,6 @@
         .contact-card-text p { font-size: 0.95rem; font-weight: 500; }
         .contact-card-text a { color: var(--color-primary); }
         .contact-card-text a:hover { text-decoration: underline; }
-        .contact-form { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 2rem; }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-primary); }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 6px;
-            background: var(--bg-primary); color: var(--text-primary); font-family: inherit; font-size: 0.95rem;
-            transition: all var(--transition);
-        }
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(30,58,138,0.1);
-        }
-        .form-group textarea { min-height: 120px; resize: vertical; }
-        .form-submit {
-            width: 100%; padding: 1rem; background: var(--color-primary); color: white;
-            border-radius: 6px; font-weight: 600; transition: all var(--transition);
-        }
-        .form-submit:hover { background: #1e40af; transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
         .footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 2rem 0; }
         .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
@@ -394,7 +339,7 @@
         .back-to-top:hover { transform: translateY(-3px); background: #1e40af; }
 
         @media (max-width: 968px) {
-            .hero-content, .contact-grid { grid-template-columns: 1fr; }
+            .hero-content { grid-template-columns: 1fr; }
             .nav-links {
                 position: fixed; top: 0; right: -100%; height: 100vh; width: 280px;
                 background: var(--bg-card); flex-direction: column; padding: 5rem 2rem;
@@ -483,24 +428,6 @@
                 </div>
                 <div class="hero-image">
                     <div class="profile-card">
-
-                        <!-- ========== PROFILE PHOTO ========== -->
-                        <!--
-                            HOW TO ADD YOUR PHOTO:
-                            ─────────────────────────────────────
-                            1. Add your photo to your GitHub repo:
-                               pip700/CV/profile.jpg  (or .png)
-                            
-                            2. Update the src below to match:
-                               https://raw.githubusercontent.com/pip700/CV/main/profile.jpg
-                            
-                            PHOTO TIPS:
-                            • Use a professional headshot (square crop works best)
-                            • Minimum 400x400px, ideally 600x600px
-                            • JPG format keeps file size small
-                            • Face centered, good lighting
-                            • The CSS will auto-crop to circle
-                        -->
                         <div class="profile-img-wrapper" id="profileImgWrapper">
                             <img 
                                 src="https://raw.githubusercontent.com/pip700/CV/main/profile.jpg" 
@@ -511,8 +438,6 @@
                             >
                             <div class="fallback-initials" aria-hidden="true">DA</div>
                         </div>
-                        <!-- ========== END PROFILE PHOTO ========== -->
-
                         <div class="contact-info">
                             <div><strong>Email:</strong> <a href="mailto:dhairiyaa@gmail.com">dhairiyaa@gmail.com</a></div>
                             <div><strong>Phone:</strong> +91-9015064028</div>
@@ -549,19 +474,15 @@
                         <h3>Doctor of Philosophy (PhD)</h3>
                         <p class="degree">Pharmacoinformatics</p>
                         <p class="institution">National Institute of Pharmaceutical Education and Research (NIPER), Mohali</p>
-                        
                         <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.3rem;">
                             <strong>Guide:</strong> Prof. Prabha Garg, Professor
                         </p>
-            
-                        <!-- Contact Links -->
                         <div class="guide-links" style="margin-top: 0.5rem; font-size: 0.85rem;">
                             <a href="mailto:prabhagarg@niper.ac.in" target="_blank">📧 Gmail</a> |
                             <a href="https://www.linkedin.com/in/prabhagarg/" target="_blank">🔗 LinkedIn</a> |
                             <a href="https://github.com/PGlab-NIPER" target="_blank">💻 GitHub</a> |
                             <a href="https://scholar.google.com/citations?user=m5UuE2UAAAAJ&hl=en" target="_blank">🎓 Google Scholar</a>
                         </div>
-                        
                         <div class="timeline-meta">
                             <span class="score">CGPA: 8.5/10</span>
                             <span class="year">2023 - 2026 (Pursuing)</span>
@@ -579,14 +500,11 @@
                         <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.3rem;">
                             <strong>Advisor:</strong> Dr. Gopal Lal Khatik, Assistant Professor
                         </p>
-                        
-                        <!-- Contact Links -->
                         <div class="guide-links" style="margin-top: 0.5rem; font-size: 0.85rem;">
                             <a href="mailto:gopal.khatik@niperraebareli.edu.in" target="_blank">📧 Gmail</a> |
                             <a href="https://www.linkedin.com/in/dr-gopal-khatik-a8679a19/" target="_blank">🔗 LinkedIn</a> |
                             <a href="https://scholar.google.com/citations?user=k0VOQQgAAAAJ&hl=en&oi=sra" target="_blank">🎓 Google Scholar</a>
                         </div>
-                        
                         <div class="timeline-meta">
                             <span class="score">CGPA: 8.0/10</span>
                             <span class="year">2021 - 2023</span>
@@ -1041,64 +959,41 @@
                 <h2 class="section-title">Get In Touch</h2>
                 <p class="section-subtitle">Open to research collaborations and opportunities</p>
             </div>
-            <div class="contact-grid">
-                <div class="contact-cards">
-                    <div class="contact-card">
-                        <div class="contact-card-icon">📧</div>
-                        <div class="contact-card-text">
-                            <h4>Email</h4>
-                            <p><a href="mailto:dhairiyaa@gmail.com">dhairiyaa@gmail.com</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-card-icon">📱</div>
-                        <div class="contact-card-text">
-                            <h4>Phone</h4>
-                            <p>+91-9015064028</p>
-                        </div>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-card-icon">📍</div>
-                        <div class="contact-card-text">
-                            <h4>Address</h4>
-                            <p>06, Rajeev Puram Dasna<br>Ghaziabad, UP 201015, India</p>
-                        </div>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-card-icon">🔗</div>
-                        <div class="contact-card-text">
-                            <h4>LinkedIn</h4>
-                            <p><a href="https://www.linkedin.com/in/dhairiya-agarwal-6a1148184/" target="_blank">View Profile</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-card-icon">💻</div>
-                        <div class="contact-card-text">
-                            <h4>GitHub</h4>
-                            <p><a href="https://github.com/pip700" target="_blank">@pip700</a></p>
-                        </div>
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="contact-card-icon">📧</div>
+                    <div class="contact-card-text">
+                        <h4>Email</h4>
+                        <p><a href="mailto:dhairiyaa@gmail.com">dhairiyaa@gmail.com</a></p>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" required></textarea>
-                        </div>
-                        <button type="submit" class="form-submit">Send Message</button>
-                    </form>
+                <div class="contact-card">
+                    <div class="contact-card-icon">📱</div>
+                    <div class="contact-card-text">
+                        <h4>Phone</h4>
+                        <p>+91-9015064028</p>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-card-icon">📍</div>
+                    <div class="contact-card-text">
+                        <h4>Address</h4>
+                        <p>06, Rajeev Puram Dasna<br>Ghaziabad, UP 201015, India</p>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-card-icon">🔗</div>
+                    <div class="contact-card-text">
+                        <h4>LinkedIn</h4>
+                        <p><a href="https://www.linkedin.com/in/dhairiya-agarwal-6a1148184/" target="_blank">View Profile</a></p>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-card-icon">💻</div>
+                    <div class="contact-card-text">
+                        <h4>GitHub</h4>
+                        <p><a href="https://github.com/pip700" target="_blank">@pip700</a></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1123,14 +1018,11 @@
     <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
     <script>
-        // ========== PROFILE PHOTO FALLBACK ==========
         function handleImageError() {
             const wrapper = document.getElementById('profileImgWrapper');
             wrapper.classList.add('no-photo');
-            console.log('Profile photo not found — showing initials fallback. Upload profile.jpg to your CV repo.');
         }
 
-        // Navigation
         const navbar = document.getElementById('navbar');
         const navLinks = document.querySelectorAll('.nav-links a');
         const hamburger = document.getElementById('hamburger');
@@ -1150,7 +1042,6 @@
             });
         });
 
-        // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
         const savedTheme = localStorage.getItem('theme') || 'light';
@@ -1165,7 +1056,6 @@
             themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
 
-        // Scroll
         window.addEventListener('scroll', () => {
             const backToTop = document.getElementById('backToTop');
             if (window.scrollY > 500) backToTop.classList.add('visible');
@@ -1176,7 +1066,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Publication Filters
         const filterBtns = document.querySelectorAll('.filter-btn');
         const pubCards = document.querySelectorAll('.pub-card');
 
@@ -1191,14 +1080,6 @@
             });
         });
 
-        // Contact Form
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your message! I will get back to you soon.');
-            e.target.reset();
-        });
-
-        // CV Download
         function downloadCV() {
             const cvContent = `CURRICULUM VITAE
 ═══════════════════════════════════════════════════════
