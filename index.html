@@ -138,13 +138,71 @@
             background: var(--bg-card); border-radius: 12px; padding: 2rem;
             box-shadow: var(--shadow-lg); border: 1px solid var(--border-color); text-align: center;
         }
-        .profile-img {
-            width: 200px; height: 200px; border-radius: 50%;
+
+        /* ==================== PROFILE PHOTO STYLES ==================== */
+        .profile-img-wrapper {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            position: relative;
             background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-            display: flex; align-items: center; justify-content: center; font-size: 5rem;
-            color: white; font-weight: 700; margin: 0 auto 1.5rem;
-            border: 4px solid var(--bg-primary); box-shadow: var(--shadow-md);
+            padding: 4px;
+            box-shadow: var(--shadow-lg);
         }
+
+        .profile-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center top;
+            border: 3px solid var(--bg-primary);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-img-wrapper:hover img {
+            transform: scale(1.03);
+        }
+
+        .profile-img-wrapper .fallback-initials {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            color: white;
+            font-weight: 700;
+            font-family: var(--font-serif);
+            border: 3px solid var(--bg-primary);
+        }
+
+        .profile-img-wrapper.no-photo img {
+            display: none;
+        }
+
+        .profile-img-wrapper.no-photo .fallback-initials {
+            display: flex;
+        }
+
+        /* Status indicator dot */
+        .profile-img-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 20px;
+            height: 20px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            border: 3px solid var(--bg-card);
+            z-index: 2;
+        }
+        /* ==================== END PROFILE PHOTO ==================== */
+
         .contact-info { display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem; color: var(--text-secondary); }
         .contact-info a { color: var(--color-primary); font-weight: 500; }
         .contact-info a:hover { text-decoration: underline; }
@@ -294,6 +352,7 @@
         .contact-card-icon {
             width: 48px; height: 48px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
             border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: white;
+            flex-shrink: 0;
         }
         .contact-card-text h4 { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.2rem; }
         .contact-card-text p { font-size: 0.95rem; font-weight: 500; }
@@ -353,6 +412,7 @@
             .section { padding: 60px 0; }
             .hero-actions { flex-direction: column; width: 100%; }
             .btn { width: 100%; justify-content: center; }
+            .profile-img-wrapper { width: 180px; height: 180px; }
         }
     </style>
 </head>
@@ -423,7 +483,36 @@
                 </div>
                 <div class="hero-image">
                     <div class="profile-card">
-                        <div class="profile-img">DA</div>
+
+                        <!-- ========== PROFILE PHOTO ========== -->
+                        <!--
+                            HOW TO ADD YOUR PHOTO:
+                            ─────────────────────────────────────
+                            1. Add your photo to your GitHub repo:
+                               pip700/CV/profile.jpg  (or .png)
+                            
+                            2. Update the src below to match:
+                               https://raw.githubusercontent.com/pip700/CV/main/profile.jpg
+                            
+                            PHOTO TIPS:
+                            • Use a professional headshot (square crop works best)
+                            • Minimum 400x400px, ideally 600x600px
+                            • JPG format keeps file size small
+                            • Face centered, good lighting
+                            • The CSS will auto-crop to circle
+                        -->
+                        <div class="profile-img-wrapper" id="profileImgWrapper">
+                            <img 
+                                src="https://raw.githubusercontent.com/pip700/CV/main/profile.jpg" 
+                                alt="Dhairiya Agarwal - PhD Candidate in Pharmacoinformatics at NIPER Mohali"
+                                id="profilePhoto"
+                                loading="eager"
+                                onerror="handleImageError()"
+                            >
+                            <div class="fallback-initials" aria-hidden="true">DA</div>
+                        </div>
+                        <!-- ========== END PROFILE PHOTO ========== -->
+
                         <div class="contact-info">
                             <div><strong>Email:</strong> <a href="mailto:dhairiyaa@gmail.com">dhairiyaa@gmail.com</a></div>
                             <div><strong>Phone:</strong> +91-9015064028</div>
@@ -460,9 +549,6 @@
                         <h3>Doctor of Philosophy (PhD)</h3>
                         <p class="degree">Pharmacoinformatics</p>
                         <p class="institution">National Institute of Pharmaceutical Education and Research (NIPER), Mohali</p>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.3rem;">
-                            <strong>Guide:</strong> Prof. Prabha Garg, Professor
-                        </p>
                         <div class="timeline-meta">
                             <span class="score">CGPA: 8.5/10</span>
                             <span class="year">2023 - 2026 (Pursuing)</span>
@@ -493,7 +579,7 @@
                         <p class="institution">Sunder Deep College of Pharmacy, Ghaziabad<br>Dr. APJ Abdul Kalam Technical University, Lucknow</p>
                         <div class="timeline-meta">
                             <span class="score">CGPA: 8.6/10</span>
-                            <span class="year">2016 - 2020</span>
+                            <span class="year">2017 - 2021</span>
                         </div>
                     </div>
                 </div>
@@ -579,13 +665,11 @@
                 <h2 class="section-title">Publications & Patents</h2>
                 <p class="section-subtitle">Peer-reviewed research articles and intellectual property</p>
             </div>
-
             <div class="pub-filters">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="journal">Journal Articles</button>
                 <button class="filter-btn" data-filter="patent">Patents</button>
             </div>
-
             <div class="publications-list">
                 <div class="pub-card" data-type="journal">
                     <span class="pub-type">Journal Article</span>
@@ -599,14 +683,13 @@
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
                                 DOI
                             </a>
-                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/1.pdf" class="pub-link" download="Agarwal_2025_Biotechnology_Reports.pdf">
+                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/1.pdf" class="pub-link" download>
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>
                                 Full Text
                             </a>
                         </div>
                     </div>
                 </div>
-
                 <div class="pub-card" data-type="journal">
                     <span class="pub-type">Journal Article</span>
                     <p class="authors"><span class="me">Agarwal, D.</span>; Malik, J.; Bhanwala, N.; Ambatwar, R.; Kumar, S.; Chandrakar, L.; Khatik, G. L.</p>
@@ -619,14 +702,13 @@
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
                                 DOI
                             </a>
-                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/2.pdf" class="pub-link" download="Agarwal_2024_JBSD.pdf">
+                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/2.pdf" class="pub-link" download>
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>
                                 Full Text
                             </a>
                         </div>
                     </div>
                 </div>
-
                 <div class="pub-card" data-type="journal">
                     <span class="pub-type">Journal Article</span>
                     <p class="authors">Mahajan, A.; Yadav, S.; Malik, J.; <span class="me">Agarwal, D.</span>; Ambatwar, R.; Datusalia, A. K.; Khatik, G. L.</p>
@@ -639,14 +721,13 @@
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
                                 DOI
                             </a>
-                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/3.pdf" class="pub-link" download="Agarwal_2024_ChemistrySelect.pdf">
+                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/3.pdf" class="pub-link" download>
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>
                                 Full Text
                             </a>
                         </div>
                     </div>
                 </div>
-
                 <div class="pub-card" data-type="journal">
                     <span class="pub-type">Journal Article</span>
                     <p class="authors"><span class="me">Agarwal, D.</span>; Kumar, S.; Ambatwar, R.; Bhanwala, N.; Chandrakar, L.; Khatik, G. L.</p>
@@ -659,14 +740,13 @@
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
                                 DOI
                             </a>
-                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/4.pdf" class="pub-link" download="Agarwal_2024_CNSSAMC.pdf">
+                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/4.pdf" class="pub-link" download>
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>
                                 Full Text
                             </a>
                         </div>
                     </div>
                 </div>
-
                 <div class="pub-card" data-type="journal">
                     <span class="pub-type">Journal Article</span>
                     <p class="authors">Ambatwar, R.; Kumar, S.; <span class="me">Agarwal, D.</span>; Chandrakar, L.; Khatik, G. L.</p>
@@ -679,14 +759,13 @@
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
                                 DOI
                             </a>
-                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/5.pdf" class="pub-link" download="Agarwal_2024_JHC.pdf">
+                            <a href="https://raw.githubusercontent.com/pip700/CV/main/publication/5.pdf" class="pub-link" download>
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>
                                 Full Text
                             </a>
                         </div>
                     </div>
                 </div>
-
                 <div class="pub-card" data-type="patent">
                     <span class="pub-type patent">Indian Patent</span>
                     <p class="authors">Khatik, G. L.; Datusalia, A. K.; Mahajan, A.; Yadav, S.; Malik, J.; <span class="me">Agarwal, D.</span>; Ambatwar, R.</p>
@@ -699,7 +778,7 @@
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg>
                                 Patent Office
                             </a>
-                            <a href="https://raw.githubusercontent.com/pip700/CV/main/patent.jpg" class="pub-link" download="Agarwal_2024_Patent.jpg">
+                            <a href="https://raw.githubusercontent.com/pip700/CV/main/patent.jpg" class="pub-link" download>
                                 <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>
                                 Documentation
                             </a>
@@ -710,7 +789,7 @@
         </div>
     </section>
 
-    <!-- ==================== UPDATED GITHUB PROJECTS ==================== -->
+    <!-- GitHub Projects -->
     <section class="section" id="projects" style="background: var(--bg-secondary);">
         <div class="container">
             <div class="section-header">
@@ -719,8 +798,6 @@
                 <p class="section-subtitle">Computational chemistry tools, AI models, and drug discovery pipelines</p>
             </div>
             <div class="projects-grid">
-
-                <!-- 1. cardiotox_prediction -->
                 <div class="project-card">
                     <div class="project-header">
                         <div class="project-icon">❤️‍🩹</div>
@@ -743,8 +820,6 @@
                         <span>📂 Public</span>
                     </div>
                 </div>
-
-                <!-- 2. Gromacs_docker_setup -->
                 <div class="project-card">
                     <div class="project-header">
                         <div class="project-icon">🐳</div>
@@ -767,8 +842,6 @@
                         <span>📂 Public</span>
                     </div>
                 </div>
-
-                <!-- 3. Repurposing -->
                 <div class="project-card">
                     <div class="project-header">
                         <div class="project-icon">💊</div>
@@ -791,8 +864,6 @@
                         <span>📂 Public</span>
                     </div>
                 </div>
-
-                <!-- 4. Pks13_Pred -->
                 <div class="project-card">
                     <div class="project-header">
                         <div class="project-icon">🎯</div>
@@ -815,8 +886,6 @@
                         <span>📂 Public</span>
                     </div>
                 </div>
-
-                <!-- 5. research_paper_chatbot -->
                 <div class="project-card">
                     <div class="project-header">
                         <div class="project-icon">📄</div>
@@ -839,8 +908,6 @@
                         <span>📂 Public</span>
                     </div>
                 </div>
-
-                <!-- 6. Diagnosing-Alzheimer-s-Disease -->
                 <div class="project-card">
                     <div class="project-header">
                         <div class="project-icon">🧠</div>
@@ -863,8 +930,6 @@
                         <span>📂 Public</span>
                     </div>
                 </div>
-
-                <!-- 7. ChE_prediction -->
                 <div class="project-card">
                     <div class="project-header">
                         <div class="project-icon">🧪</div>
@@ -887,7 +952,6 @@
                         <span>📂 Public</span>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -1023,9 +1087,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-text">
-                    © 2024 Dhairiya Agarwal. All rights reserved.
-                </div>
+                <div class="footer-text">© 2024 Dhairiya Agarwal. All rights reserved.</div>
                 <div class="footer-links">
                     <a href="#publications">Publications</a>
                     <a href="#projects">Projects</a>
@@ -1040,6 +1102,14 @@
     <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
     <script>
+        // ========== PROFILE PHOTO FALLBACK ==========
+        function handleImageError() {
+            const wrapper = document.getElementById('profileImgWrapper');
+            wrapper.classList.add('no-photo');
+            console.log('Profile photo not found — showing initials fallback. Upload profile.jpg to your CV repo.');
+        }
+
+        // Navigation
         const navbar = document.getElementById('navbar');
         const navLinks = document.querySelectorAll('.nav-links a');
         const hamburger = document.getElementById('hamburger');
@@ -1059,6 +1129,7 @@
             });
         });
 
+        // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
         const savedTheme = localStorage.getItem('theme') || 'light';
@@ -1073,19 +1144,18 @@
             themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
 
+        // Scroll
         window.addEventListener('scroll', () => {
             const backToTop = document.getElementById('backToTop');
-            if (window.scrollY > 500) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
+            if (window.scrollY > 500) backToTop.classList.add('visible');
+            else backToTop.classList.remove('visible');
         });
 
         document.getElementById('backToTop').addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
+        // Publication Filters
         const filterBtns = document.querySelectorAll('.filter-btn');
         const pubCards = document.querySelectorAll('.pub-card');
 
@@ -1095,21 +1165,19 @@
                 btn.classList.add('active');
                 const filter = btn.dataset.filter;
                 pubCards.forEach(card => {
-                    if (filter === 'all' || card.dataset.type === filter) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
+                    card.style.display = (filter === 'all' || card.dataset.type === filter) ? 'block' : 'none';
                 });
             });
         });
 
+        // Contact Form
         document.getElementById('contactForm').addEventListener('submit', (e) => {
             e.preventDefault();
             alert('Thank you for your message! I will get back to you soon.');
             e.target.reset();
         });
 
+        // CV Download
         function downloadCV() {
             const cvContent = `CURRICULUM VITAE
 ═══════════════════════════════════════════════════════
@@ -1153,116 +1221,34 @@ CGPA: 8.6/10
 
 COMPETITIVE EXAMINATIONS QUALIFIED
 ───────────────────────────────────────────────────────
-• NIPER-PhD (2023) - Ministry of Chemicals & Fertilizers, Govt. of India
-• NIPER-JEE (2021) - Ministry of Chemicals & Fertilizers, Govt. of India
-• GPAT (2021) - AICTE, New Delhi
-
-═══════════════════════════════════════════════════════
-
-RESEARCH INTERESTS
-───────────────────────────────────────────────────────
-• Computational Medicinal Chemistry
-• AI-driven Drug Discovery & Development
-• Structure-based and Ligand-based Drug Design
-• Lead Generation and Optimization
-• Multi-target Drug Design
-• Novel Anti-Alzheimer's Therapeutics
-• Network Pharmacology & Systems Biology
-• Machine Learning & Deep Learning in Chemoinformatics
-• Graph Neural Networks for Drug Discovery
-• Generative AI Models (VAE) for Molecular Design
+• NIPER-PhD (2023)
+• NIPER-JEE (2021)
+• GPAT (2021)
 
 ═══════════════════════════════════════════════════════
 
 PUBLICATIONS (6)
 ───────────────────────────────────────────────────────
-1. Shah, A. J., et al. (2025). Integration of phytochemical profiling 
-   and computational approaches to evaluate the neuroprotective potential 
-   of Nardostachys jatamansi in Alzheimer's disease. 
-   Biotechnology Reports.
-
-2. Agarwal, D., et al. (2024). Networkodynamic approach to perceive 
-   the key phytoconstituents of E. officinalis (Amla) as natural BACE1 
-   inhibitors: an in-silico study. 
-   Journal of Biomolecular Structure and Dynamics.
-
-3. Mahajan, A., et al. (2024). Design, Synthesis, Computational Study, 
-   and Antidiabetic Evaluation of Benzoxazole Derivatives. 
-   ChemistrySelect.
-
-4. Agarwal, D., et al. (2024). Lead Identification Through In Silico 
-   Studies: Targeting Acetylcholinesterase Enzyme Against Alzheimer's 
-   Disease. Central Nervous System Agents in Medicinal Chemistry.
-
-5. Ambatwar, R., et al. (2024). Cobalt Perchlorate Hexahydrate 
-   Catalyzed One-Pot Synthesis of Dihydropyrimidin-ones/-thiones 
-   through Sonochemistry and its Mechanistic Study using DFT. 
-   Journal of Heterocyclic Chemistry.
-
-═══════════════════════════════════════════════════════
+1. Shah, A. J., et al. (2025). Biotechnology Reports.
+2. Agarwal, D., et al. (2024). J. Biomol. Struct. Dyn.
+3. Mahajan, A., et al. (2024). ChemistrySelect.
+4. Agarwal, D., et al. (2024). CNS Agents Med. Chem.
+5. Ambatwar, R., et al. (2024). J. Heterocyclic Chem.
 
 PATENT (1)
-───────────────────────────────────────────────────────
 Indian Patent No. 554,344 (2024)
-Title: BENZOXAZOLE-2-YL-2-PHENOXYACETAMIDE DERIVATIVES AS 
-       ALPHA-AMYLASE INHIBITORS AND ANTI-DIABETIC
-Inventors: Khatik, G. L.; Datusalia, A. K.; Mahajan, A.; 
-           Yadav, S.; Malik, J.; Agarwal, D.; Ambatwar, R.
 
 ═══════════════════════════════════════════════════════
 
 GITHUB PROJECTS
 ───────────────────────────────────────────────────────
-1. cardiotox_prediction - ML-based cardiotoxicity prediction
-2. Gromacs_docker_setup - Dockerized GROMACS for MD simulations
-3. Repurposing - 3D-VAE driven molecular repurposing
-4. Pks13_Pred - Classification of Pks13 inhibitors
-5. research_paper_chatbot - AI chatbot for research papers
+1. cardiotox_prediction - ML cardiotoxicity prediction
+2. Gromacs_docker_setup - Dockerized GROMACS for MD
+3. Repurposing - 3D-VAE molecular repurposing
+4. Pks13_Pred - Pks13 inhibitor classification
+5. research_paper_chatbot - AI research paper chatbot
 6. Diagnosing-Alzheimer-s-Disease - DL-based AD diagnosis
 7. ChE_prediction - Cholinesterase inhibitor prediction
-
-═══════════════════════════════════════════════════════
-
-TECHNICAL SKILLS
-───────────────────────────────────────────────────────
-Computational Methods:
-• Molecular Docking (AutoDock Vina)
-• Molecular Dynamics Simulation
-• QSAR/QSPR Modeling
-• Network Pharmacology
-• Machine Learning & Deep Learning
-• Graph Neural Networks
-• ADMET Prediction
-• Binding Free Energy Calculations
-
-Software & Tools:
-• Schrödinger Suite
-• Biovia Discovery Studio
-• ChemDraw Ultra 19.0
-• SwissADME
-• Python (RDKit, Scikit-learn, TensorFlow, PyTorch)
-• MestreNova, Chem3D
-• SciFinder, PubChem, ZINC
-
-Experimental Skills:
-• Organic Synthesis & Purification
-• Column Chromatography, TLC
-• Spectroscopy (NMR, IR, HRMS)
-• In-vitro Assays (Ellman, α-amylase)
-• In-vivo Studies & Animal Handling
-
-═══════════════════════════════════════════════════════
-
-CONFERENCES & WORKSHOPS
-───────────────────────────────────────────────────────
-• SERB Sponsored Workshop on "Hands-On Training on Computer-Aided 
-  Drug Design and Discovery Tools" - Ganpat University (July 2022)
-
-• One-Day International Symposium on "Drug Discovery & Development 
-  Interface" - NIPER Raebareli (Feb 2023)
-
-• National Intellectual Property Awareness Mission (NIPAM) - 
-  NIPER Raebareli (Feb 2023)
 
 ═══════════════════════════════════════════════════════
 Generated from: https://pip700.github.io/CV/`;
